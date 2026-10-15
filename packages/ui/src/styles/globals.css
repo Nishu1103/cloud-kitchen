@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Token values live here as HSL channels (no `hsl()` wrapper) so Tailwind can apply
+ * opacity modifiers. A campus overrides only `--brand*` at runtime; everything else
+ * is the platform's own visual language.
+ */
+@layer base {
+  :root {
+    --canvas: 36 33% 97%;
+    --surface: 0 0% 100%;
+    --surface-muted: 36 24% 96%;
+    --surface-raised: 0 0% 100%;
+
+    --line: 32 16% 89%;
+    --line-strong: 32 12% 80%;
+
+    --ink: 24 18% 12%;
+    --ink-muted: 24 8% 38%;
+    --ink-subtle: 24 6% 55%;
+    --ink-inverted: 36 33% 98%;
+
+    /* Saffron: warm, appetising, and legible against both surfaces. */
+    --brand: 26 92% 48%;
+    --brand-hover: 26 92% 42%;
+    --brand-soft: 30 96% 94%;
+    --brand-ring: 26 92% 48%;
+    --brand-ink: 0 0% 100%;
+
+    --success: 152 62% 34%;
+    --success-soft: 150 62% 94%;
+    --success-ink: 154 68% 22%;
+
+    --warning: 38 92% 45%;
+    --warning-soft: 44 96% 92%;
+    --warning-ink: 30 88% 26%;
+
+    --danger: 356 72% 48%;
+    --danger-soft: 356 90% 96%;
+    --danger-ink: 356 70% 34%;
+
+    --info: 214 82% 48%;
+    --info-soft: 212 92% 95%;
+    --info-ink: 216 76% 32%;
+
+    --gold: 38 72% 52%;
+    --gold-ink: 38 80% 18%;
+    --peach: 20 55% 87%;
+    --peach-ink: 24 18% 12%;
+
+    --shadow: 24 30% 14%;
+
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-display: 'Inter', system-ui, sans-serif;
+    --font-mono: ui-monospace, monospace;
+  }
+
+  [data-theme='dark'] {
+    --canvas: 24 14% 7%;
+    --surface: 24 12% 11%;
+    --surface-muted: 24 10% 15%;
+    --surface-raised: 24 11% 14%;
+
+    --line: 24 8% 22%;
+    --line-strong: 24 8% 32%;
+
+    --ink: 36 20% 96%;
+    --ink-muted: 32 8% 70%;
+    --ink-subtle: 30 6% 55%;
+    --ink-inverted: 24 18% 10%;
+
+    /* Lifted and slightly desaturated: full-strength saffron vibrates on dark. */
+    --brand: 30 94% 56%;
+    --brand-hover: 30 94% 62%;
+    --brand-soft: 26 40% 18%;
+    --brand-ring: 30 94% 56%;
+    --brand-ink: 24 40% 8%;
+
+    --success: 152 52% 46%;
+    --success-soft: 154 34% 16%;
+    --success-ink: 150 60% 78%;
+
+    --warning: 40 90% 56%;
+    --warning-soft: 38 44% 17%;
+    --warning-ink: 44 90% 78%;
+
+    --danger: 356 72% 60%;
+    --danger-soft: 356 40% 18%;
+    --danger-ink: 356 90% 84%;
+
+    --info: 214 82% 62%;
+    --info-soft: 216 44% 18%;
+    --info-ink: 212 90% 84%;
+
+    --shadow: 0 0% 0%;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    /* Anchor links and scroll-into-view must clear the sticky header. */
+    scroll-padding-top: theme('spacing.header');
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans text-body antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One visible, consistent focus ring everywhere - never `outline: none`. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-ring ring-offset-2 ring-offset-canvas;
+  }
+
+  /* Respect a user's reduced-motion preference rather than animating regardless. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Numeric columns (prices, totals) align only with tabular figures. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Shared card chrome; components compose this rather than redefining the look. */
+  .ck-card {
+    @apply rounded-lg border border-line bg-surface shadow-sm;
+  }
+
+  /* Content-agnostic loading placeholder with a moving highlight. */
+  .ck-skeleton {
+    @apply relative overflow-hidden rounded bg-surface-muted;
+  }
+  .ck-skeleton::after {
+    @apply absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent content-[''];
+  }
+  [data-theme='dark'] .ck-skeleton::after {
+    @apply via-white/[0.06];
+  }
+
+  /*
+   * Typography for admin-authored rich text (CMS pages, announcements). Styling the
+   * container rather than the tags keeps arbitrary HTML from inheriting app chrome, and
+   * keeps the reset in `base` from stripping every heading and list it contains.
+   */
+  .ck-prose {
+    @apply max-w-prose text-body leading-relaxed text-ink;
+  }
+  .ck-prose > * + * {
+    @apply mt-4;
+  }
+  .ck-prose h2 {
+    @apply mt-8 text-title-lg font-semibold text-ink;
+  }
+  .ck-prose h3 {
+    @apply mt-6 text-title font-semibold text-ink;
+  }
+  .ck-prose h4 {
+    @apply mt-4 text-body font-semibold text-ink;
+  }
+  .ck-prose ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+  .ck-prose ol {
+    @apply list-decimal space-y-1 pl-5;
+  }
+  .ck-prose a {
+    @apply text-brand underline underline-offset-4 hover:no-underline;
+  }
+  .ck-prose blockquote {
+    @apply border-l-2 border-line-strong pl-4 italic text-ink-muted;
+  }
+  .ck-prose hr {
+    @apply border-line;
+  }
+  .ck-prose img {
+    @apply rounded-md;
+  }
+  .ck-prose table {
+    @apply w-full border-collapse text-caption;
+  }
+  .ck-prose th,
+  .ck-prose td {
+    @apply border border-line px-3 py-2 text-left align-top;
+  }
+  .ck-prose th {
+    @apply bg-surface-muted font-semibold;
+  }
+
+  /* Hides content visually but keeps it for screen readers. */
+  .ck-sr-only {
+    @apply absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+  }
+}

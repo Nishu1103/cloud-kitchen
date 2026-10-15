@@ -1,0 +1,73 @@
+name: campus-kitchen
+
+# Local development infrastructure only.
+# Production uses managed services (MongoDB Atlas with SCRAM + TLS, managed Redis with
+# TLS + AUTH, Amazon S3). Nothing here is exposed beyond 127.0.0.1.
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: ck-mongo
+    # Replica set is required for multi-document transactions (orders, wallet, payments).
+    command: ['--replSet', 'rs0', '--bind_ip_all']
+    ports:
+      # Off the default port so a Mongo already running on this machine does not clash.
+      - '127.0.0.1:27018:27017'
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand({ ping: 1 })']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  mongo-init:
+    image: mongo:7.0
+    container_name: ck-mongo-init
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: 'no'
+    entrypoint:
+      - bash
+      - -c
+      - |
+        mongosh --host mongo:27017 --quiet --eval '
+          try { rs.status().ok } catch (e) {
+            rs.initiate({ _id: "rs0", members: [{ _id: 0, host: "localhost:27017" }] })
+          }
+        '
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: ck-redis
+    command:
+      - redis-server
+      - --requirepass
+      - ${REDIS_PASSWORD:-localdevpassword}
+      - --appendonly
+      - 'yes'
+      - --maxmemory-policy
+      - noeviction
+    ports:
+      - '127.0.0.1:6380:6379'
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '-a', '${REDIS_PASSWORD:-localdevpassword}', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Catches all outbound dev email; UI on http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:v1.21
+    container_name: ck-mailpit
+    ports:
+      - '127.0.0.1:1025:1025'
+      - '127.0.0.1:8025:8025'
+
+volumes:
+  mongo-data:
+  redis-data:

@@ -1,0 +1,51 @@
+{
+  "name": "Campus Kitchen",
+  "short_name": "Campus Kitchen",
+  "description": "Order from campus kitchens, track every order live, and pay by wallet, UPI or cash.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf8f4",
+  "theme_color": "#e8590c",
+  "categories": ["food", "shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "My orders",
+      "url": "/orders",
+      "description": "Track an order in progress"
+    },
+    {
+      "name": "Kitchens",
+      "url": "/kitchens",
+      "description": "Browse every kitchen on campus"
+    }
+  ]
+}

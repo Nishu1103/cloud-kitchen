@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  // The canonical options live in the shared config package so that tooling which
+  // resolves `extends` through pnpm symlinks (ts-node, Next) sees the same file.
+  "extends": "./packages/config/tsconfig/base.json"
+}

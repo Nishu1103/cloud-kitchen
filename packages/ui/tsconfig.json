@@ -1,0 +1,17 @@
+{
+  "extends": "@ck/config/tsconfig/next.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false,
+    "plugins": [],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "tailwind-preset.js"],
+  "exclude": ["node_modules"]
+}

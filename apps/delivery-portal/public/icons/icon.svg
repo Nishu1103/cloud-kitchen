@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Campus Kitchen for riders">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f3f36" />
+      <stop offset="1" stop-color="#07211d" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <g fill="none" stroke="#34d399" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="150" cy="342" r="58" />
+    <circle cx="362" cy="342" r="58" />
+    <path d="M150 342l62-118h84" />
+    <path d="M362 342l-58-160h-46" />
+    <path d="M212 224h108" />
+  </g>
+</svg>

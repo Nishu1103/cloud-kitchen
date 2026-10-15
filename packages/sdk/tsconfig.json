@@ -1,0 +1,12 @@
+{
+  "extends": "@ck/config/tsconfig/next.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false,
+    "plugins": []
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,80 @@
+/**
+ * Rider console theme.
+ *
+ * Dark canvas, neon lime actions, purple earnings cards. Scoped to this document so
+ * the customer storefront, vendor kitchen, and admin portal keep their own palettes.
+ *
+ * Selector is `html[data-portal='delivery']`. Next often flattens `@layer base { :root }`
+ * into an unlayered `:root`; those two would tie on specificity and saffron would win
+ * by source order. This selector is (0, 1, 1) and always beats `:root`.
+ */
+
+html[data-portal='delivery'] {
+  color-scheme: dark;
+
+  --canvas: 0 0% 4%;
+  --surface: 240 6% 9%;
+  --surface-muted: 240 6% 7%;
+  --surface-raised: 240 6% 13%;
+
+  --line: 240 6% 16%;
+  --line-strong: 240 6% 24%;
+
+  --ink: 0 0% 98%;
+  --ink-muted: 240 8% 72%;
+  --ink-subtle: 240 6% 52%;
+  --ink-inverted: 0 0% 4%;
+
+  /* #A3E635 — accept, reached, picked up. Dark ink so lime stays readable. */
+  --brand: 82 78% 55%;
+  --brand-hover: 82 78% 48%;
+  --brand-soft: 82 40% 12%;
+  --brand-ring: 82 78% 55%;
+  --brand-ink: 90 40% 8%;
+
+  --success: 82 78% 55%;
+  --success-soft: 82 40% 12%;
+  --success-ink: 82 80% 78%;
+
+  --warning: 32 96% 56%;
+  --warning-soft: 32 50% 14%;
+  --warning-ink: 36 96% 78%;
+
+  --danger: 0 78% 62%;
+  --danger-soft: 0 40% 14%;
+  --danger-ink: 0 90% 82%;
+
+  --info: 248 57% 64%;
+  --info-soft: 248 30% 16%;
+  --info-ink: 248 80% 82%;
+
+  --shadow: 0 0% 0%;
+
+  /* Earnings / map cards. */
+  --rider-purple: 248 57% 58%;
+  --rider-purple-end: 258 48% 32%;
+}
+
+html[data-portal='delivery'] .ck-card {
+  border-radius: 1.25rem;
+  border-color: hsl(var(--line));
+  box-shadow: 0 12px 32px -20px hsl(var(--shadow) / 0.8);
+}
+
+html[data-portal='delivery'] .ck-skeleton::after {
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    hsl(0 0% 100% / 0.06),
+    transparent
+  );
+}
+
+html[data-portal='delivery'] .rider-purple {
+  background: linear-gradient(
+    160deg,
+    hsl(var(--rider-purple)) 0%,
+    hsl(var(--rider-purple-end)) 100%
+  );
+  color: hsl(var(--ink));
+}

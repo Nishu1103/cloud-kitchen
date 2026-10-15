@@ -1,0 +1,119 @@
+/**
+ * Customer storefront theme (KWIKE).
+ *
+ * Scoped to `[data-portal='customer']` so the shared design system used by vendor,
+ * delivery and admin is not rewritten. Tokens stay HSL channels so Tailwind opacity
+ * modifiers (`bg-brand/40`) keep working.
+ */
+
+[data-portal='customer'] {
+  --cream: 38 67% 89%;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --radius-card: 1.35rem;
+}
+
+[data-portal='customer'][data-theme='dark'] {
+  --canvas: 0 0% 0%;
+  --surface: 0 0% 8%;
+  --surface-muted: 0 0% 12%;
+  --surface-raised: 0 0% 11%;
+
+  --line: 0 0% 16%;
+  --line-strong: 0 0% 24%;
+
+  --ink: 40 20% 97%;
+  --ink-muted: 30 8% 72%;
+  --ink-subtle: 0 0% 52%;
+  --ink-inverted: 0 0% 4%;
+
+  --brand: 258 92% 64%;
+  --brand-hover: 258 92% 70%;
+  --brand-soft: 258 40% 16%;
+  --brand-ring: 258 92% 64%;
+  --brand-ink: 0 0% 100%;
+
+  --success: 123 42% 42%;
+  --success-soft: 123 28% 14%;
+  --success-ink: 123 45% 78%;
+
+  --warning: 32 94% 56%;
+  --warning-soft: 32 40% 16%;
+  --warning-ink: 32 90% 82%;
+
+  --danger: 356 72% 60%;
+  --danger-soft: 356 40% 16%;
+  --danger-ink: 356 90% 84%;
+
+  --info: 258 80% 70%;
+  --info-soft: 258 36% 16%;
+  --info-ink: 258 90% 88%;
+
+  /* Warm gold-orange — Hungry?, meal chips, ratings. */
+  --gold: 28 92% 58%;
+  --gold-ink: 28 90% 94%;
+  --peach: 24 70% 78%;
+  --peach-ink: 0 0% 8%;
+
+  --shadow: 0 0% 0%;
+}
+
+[data-portal='customer'][data-theme='light'] {
+  --canvas: 38 40% 96%;
+  --surface: 0 0% 100%;
+  --surface-muted: 38 30% 94%;
+  --surface-raised: 0 0% 100%;
+
+  --line: 38 18% 88%;
+  --line-strong: 38 14% 80%;
+
+  --ink: 255 10% 10%;
+  --ink-muted: 255 6% 38%;
+  --ink-subtle: 255 5% 52%;
+  --ink-inverted: 0 0% 100%;
+
+  --brand: 258 80% 54%;
+  --brand-hover: 258 80% 48%;
+  --brand-soft: 258 100% 96%;
+  --brand-ring: 258 80% 54%;
+  --brand-ink: 0 0% 100%;
+
+  --success: 123 46% 34%;
+  --success-soft: 123 40% 94%;
+  --success-ink: 123 50% 22%;
+
+  --gold: 28 88% 46%;
+  --gold-ink: 28 40% 16%;
+  --peach: 24 70% 78%;
+  --peach-ink: 0 0% 8%;
+
+  --shadow: 255 20% 12%;
+}
+
+[data-portal='customer'] .ck-card {
+  border-radius: var(--radius-card);
+}
+
+[data-portal='customer'] .font-serif,
+[data-portal='customer'] .font-display {
+  letter-spacing: -0.03em;
+}
+
+[data-portal='customer'] .font-script {
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+
+[data-portal='customer'] .hungry-script {
+  font-family: var(--font-script), cursive;
+  color: hsl(var(--gold));
+  font-size: 2.7rem;
+  line-height: 0.85;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 12px hsl(0 0% 0% / 0.45);
+}
+
+/* Hide number-input spinners on search fields that browsers sometimes inject. */
+[data-portal='customer'] input[type='search']::-webkit-search-decoration,
+[data-portal='customer'] input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}

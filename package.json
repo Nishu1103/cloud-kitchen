@@ -1,0 +1,34 @@
+{
+  "name": "campus-kitchen",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:api": "turbo run dev --filter=@ck/api",
+    "dev:customer": "turbo run dev --filter=@ck/customer-web",
+    "dev:vendor": "turbo run dev --filter=@ck/vendor-portal",
+    "dev:delivery": "turbo run dev --filter=@ck/delivery-portal",
+    "dev:admin": "turbo run dev --filter=@ck/admin-portal",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "seed": "pnpm --filter @ck/api run seed",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "infra:reset": "docker compose down -v && docker compose up -d",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,yml}\""
+  },
+  "devDependencies": {
+    "prettier": "3.4.2",
+    "prettier-plugin-tailwindcss": "0.6.9",
+    "turbo": "2.3.3",
+    "typescript": "5.7.2"
+  }
+}
